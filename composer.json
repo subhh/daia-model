@@ -1,0 +1,23 @@
+{
+    "name": "subhh/daia-model",
+    "description": "An implementation of the Document Availability Information API data model",
+    "authors": [
+        {
+            "name": "David Maus",
+            "email": "david.maus@sub.uni-hamburg.de"
+        }
+    ],
+    "homepage": "https://github.com/subhh/daia-model",
+    "license": "GPL-3.0-or-later",
+    "support": {
+        "issues": "https://github.com/subhh/daia-model/issues"
+    },
+    "autoload": {
+        "psr-4": {
+            "SUBHH\\DAIA\\Model\\": [ "src/main/php", "src/test/php"]
+        }
+    },
+    "require": {
+        "psr/http-message": "^1.0"
+    }
+}
