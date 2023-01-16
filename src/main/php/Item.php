@@ -200,4 +200,14 @@ final class Item implements JsonSerializable
         }
         return $data;
     }
+
+    public function accept (Visitor $visitor) : void
+    {
+        foreach ($this->getAvailable() as $available) {
+            $visitor->visitAvailable($available);
+        }
+        foreach ($this->getUnavailable() as $unavailable) {
+            $visitor->visitUnavailable($unavailable);
+        }
+    }
 }

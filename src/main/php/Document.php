@@ -117,4 +117,11 @@ final class Document implements JsonSerializable
         }
         return $data;
     }
+
+    public function accept (Visitor $visitor) : void
+    {
+        foreach ($this->getItems() as $item) {
+            $visitor->visitItem($item);
+        }
+    }
 }

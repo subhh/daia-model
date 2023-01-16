@@ -120,4 +120,11 @@ abstract class Availability
         }
         return $data;
     }
+
+    public function accept (Visitor $visitor) : void
+    {
+        foreach ($this->getLimitations() as $limitation) {
+            $visitor->visitLimitation($limitation);
+        }
+    }
 }

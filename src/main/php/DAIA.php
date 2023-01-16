@@ -85,4 +85,14 @@ final class DAIA implements JsonSerializable
         }
         return $data;
     }
+
+    public function accept (Visitor $visitor) : void
+    {
+        if ($institution = $this->getInstitution()) {
+            $visitor->visitInstitution($institution);
+        }
+        foreach ($this->getDocuments() as $document) {
+            $visitor->visitDocument($document);
+        }
+    }
 }
