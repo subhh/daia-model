@@ -96,7 +96,8 @@ final class Document implements JsonSerializable
         $this->requested = $requested;
     }
 
-    public function jsonSerialize () : mixed
+    /** @return mixed */
+    public function jsonSerialize ()
     {
         $data = array();
         $data['id'] = (string)$this->getId();

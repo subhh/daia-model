@@ -43,7 +43,8 @@ final class Available extends Availability implements JsonSerializable
         $this->delay = $delay;
     }
 
-    public function jsonSerialize () : mixed
+    /** @return mixed */
+    public function jsonSerialize ()
     {
         $data = parent::jsonSerialize();
         if ($delay = $this->getDelay()) {

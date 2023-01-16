@@ -56,7 +56,8 @@ final class Unavailable extends Availability implements JsonSerializable
         return $this->expected;
     }
 
-    public function jsonSerialize () : mixed
+    /** @return mixed */
+    public function jsonSerialize ()
     {
         $data = parent::jsonSerialize();
         if ($expected = $this->getExpected()) {

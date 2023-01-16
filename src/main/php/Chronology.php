@@ -42,7 +42,8 @@ final class Chronology implements JsonSerializable
         $this->about = $about;
     }
 
-    public function jsonSerialize () : mixed
+    /** @return mixed */
+    public function jsonSerialize ()
     {
         $data = array();
         if ($about = $this->getAbout()) {

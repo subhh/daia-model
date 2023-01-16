@@ -39,7 +39,7 @@ abstract class Entity implements JsonSerializable
     /** @var ?string */
     private $content;
 
-    final public function jsonSerialize () : mixed
+    public function jsonSerialize () : mixed
     {
         $data = array();
         if ($id = $this->getId()) {

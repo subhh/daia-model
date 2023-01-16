@@ -70,7 +70,8 @@ final class DAIA implements JsonSerializable
         return $this->timestamp;
     }
 
-    public function jsonSerialize () : mixed
+    /** @return mixed */
+    public function jsonSerialize ()
     {
         $data = array();
         if ($institution = $this->getInstitution()) {

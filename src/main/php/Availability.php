@@ -83,7 +83,7 @@ abstract class Availability
     }
 
     /** @return mixed */
-    public function jsonSerialize () : mixed
+    public function jsonSerialize ()
     {
         $data = array();
         $service = $this->getService();

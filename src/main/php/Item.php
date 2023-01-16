@@ -162,7 +162,8 @@ final class Item implements JsonSerializable
         $this->part = $part;
     }
 
-    public function jsonSerialize () : mixed
+    /** @return mixed */
+    public function jsonSerialize ()
     {
         $data = array();
         if ($href = $this->getHref()) {
