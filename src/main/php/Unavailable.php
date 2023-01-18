@@ -33,6 +33,9 @@ final class Unavailable extends Availability implements JsonSerializable
     /** @var ?DateTimeImmutable */
     private $expected;
 
+    /** @var ?bool */
+    private $expectedUnknown;
+
     /** @var int */
     private $queue;
 
@@ -48,6 +51,7 @@ final class Unavailable extends Availability implements JsonSerializable
 
     public function setExpected (DateTimeImmutable $expected) : void
     {
+        $this->expectedUnknown = false;
         $this->expected = $expected;
     }
 
@@ -56,10 +60,24 @@ final class Unavailable extends Availability implements JsonSerializable
         return $this->expected;
     }
 
+    public function setExpectedUnknown () : void
+    {
+        $this->expectedUnknown = true;
+        $this->expected = null;
+    }
+
+    public function isExpectedUnknown () : ?bool
+    {
+        return $this->expectedUnknown;
+    }
+
     /** @return mixed */
     public function jsonSerialize ()
     {
         $data = parent::jsonSerialize();
+        if ($this->isExpectedUnknown()) {
+            $data['expected'] = 'unknown';
+        }
         if ($expected = $this->getExpected()) {
             $data['expected'] = $expected->format('Y-m-dP');
         }

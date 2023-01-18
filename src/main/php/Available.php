@@ -33,6 +33,9 @@ final class Available extends Availability implements JsonSerializable
     /** @var ?DateInterval */
     private $delay;
 
+    /** @var ?bool */
+    private $delayUnknown;
+
     public function getDelay () : ?DateInterval
     {
         return $this->delay;
@@ -41,12 +44,27 @@ final class Available extends Availability implements JsonSerializable
     public function setDelay (DateInterval $delay) : void
     {
         $this->delay = $delay;
+        $this->delayUnknown = false;
+    }
+
+    public function setDelayUnknown () : void
+    {
+        $this->delay = null;
+        $this->delayUnknown = true;
+    }
+
+    public function isDelayUnknown () : ?bool
+    {
+        return $this->delayUnknown;
     }
 
     /** @return mixed */
     public function jsonSerialize ()
     {
         $data = parent::jsonSerialize();
+        if ($this->isDelayUnknown()) {
+            $data['delay'] = 'unknown';
+        }
         if ($delay = $this->getDelay()) {
             $data['delay'] = $delay->format('%rP%yY%mM%dDT%hH%iM%sS');
         }
