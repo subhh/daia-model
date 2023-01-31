@@ -32,19 +32,44 @@ final class DAIASimpleUnavailable extends DAIASimple
     /** @var ?DateTimeImmutable */
     private $expected;
 
+    /** @var ?bool */
+    private $expectedUnknown;
+
     /** @var ?int */
     private $queue;
 
-    public function __construct (string $service, DateTimeImmutable $expected = null, int $queue = null)
+    public function __construct (string $service)
     {
         parent::__construct($service, false);
+    }
+
+    public function setExpected (DateTimeImmutable $expected) : void
+    {
+        $this->expectedUnknown = false;
         $this->expected = $expected;
-        $this->queue = $queue;
+    }
+
+    public function setExpectedUnknown () : void
+    {
+        $this->expectedUnknown = true;
     }
 
     public function getExpected () : ?DateTimeImmutable
     {
         return $this->expected;
+    }
+
+    public function isExpectedUnknown () : bool
+    {
+        if ($this->expectedUnknown) {
+            return true;
+        }
+        return false;
+    }
+
+    public function setQueue (int $queue) : void
+    {
+        $this->queue = $queue;
     }
 
     public function getQueue () : ?int

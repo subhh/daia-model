@@ -25,7 +25,6 @@ declare(strict_types=1);
 
 namespace SUBHH\DAIA\Model;
 
-use InvalidArgumentException;
 use DateInterval;
 
 final class DAIASimpleAvailable extends DAIASimple
@@ -36,31 +35,28 @@ final class DAIASimpleAvailable extends DAIASimple
     /** @var bool */
     private $delayUnknown;
 
-    /** @param mixed $delay A DateInterval instance or the string 'unknown' */
-    public function __construct (string $service, $delay = null)
+    public function __construct (string $service)
     {
-        if (!is_null($delay) && !$delay instanceof DateInterval && !is_string($delay)) {
-            throw new InvalidArgumentException(
-                sprintf('Invalid type of argument $delay: DateInterval|string, %s', gettype($delay))
-            );
-        }
-        if (is_string($delay) && $delay !== 'unknown') {
-            throw new InvalidArgumentException("Unknown delay string indicator: 'unknown', '{$delay}'");
-        }
-
         parent::__construct($service, true);
-        if ($delay instanceof DateInterval) {
-            $this->delay = $delay;
-            $this->delayUnknown = false;
-        }
-        if (is_string($delay)) {
-            $this->delayUnknown = true;
-        }
+    }
+
+    public function setDelay (DateInterval $delay) : void
+    {
+        $this->delay = $delay;
+        $this->delayUnknown = false;
+    }
+
+    public function setDelayUnknown () : void
+    {
+        $this->delayUnknown = true;
     }
 
     public function isDelayUnknown () : bool
     {
-        return $this->delayUnknown;
+        if ($this->delayUnknown) {
+            return true;
+        }
+        return false;
     }
 
     public function getDelay () : ?DateInterval
