@@ -43,7 +43,7 @@ abstract class Availability
 
     final public function __construct (UriInterface $service)
     {
-        $this->setService($service);
+        $this->service = $service;
     }
 
     final public function getService () : UriInterface
