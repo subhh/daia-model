@@ -41,14 +41,14 @@ abstract class Availability
     /** @var Limitation[] */
     private $limitations = array();
 
+    final public function __construct (UriInterface $service)
+    {
+        $this->setService($service);
+    }
+
     final public function getService () : UriInterface
     {
         return $this->service;
-    }
-
-    final public function setService (UriInterface $service) : void
-    {
-        $this->service = $service;
     }
 
     final public function setHref (UriInterface $href) : void
