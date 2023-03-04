@@ -110,6 +110,30 @@ final class Item implements JsonSerializable
         return $this->chronology;
     }
 
+    /** @return Availability[] */
+    public function getAvailabilityByService (string $service) : array
+    {
+        if (in_array($service, ['presentation', 'loan', 'interloan', 'remote', 'openaccess'], true)) {
+            $service = 'http://purl.org/ontology/dso#' . ucfirst($service);
+        }
+        $availability = array();
+        foreach ($this->getAvailability() as $available) {
+            if ($service === (string)$available->getService()) {
+                $availability[] = $available;
+            }
+        }
+        return $availability;
+    }
+
+    /** @return Availability[] */
+    public function getAvailability () : array
+    {
+        return array_merge(
+            $this->getAvailable(),
+            $this->getUnavailable(),
+        );
+    }
+
     public function addAvailable (Available $available) : void
     {
         $this->available[] = $available;
