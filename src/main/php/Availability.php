@@ -82,45 +82,6 @@ abstract class Availability
         $this->limitations[] = $limitation;
     }
 
-    /** @return mixed */
-    public function jsonSerialize ()
-    {
-        $data = array();
-        $serviceId = $this->getService()->getId();
-        switch ((string)$serviceId) {
-        case 'http://purl.org/ontology/dso#Presentation':
-            $data['service'] = 'presentation';
-            break;
-        case 'http://purl.org/ontology/dso#Loan':
-            $data['service'] = 'loan';
-            break;
-        case 'http://purl.org/ontology/dso#Interloan':
-            $data['service'] = 'interloan';
-            break;
-        case 'http://purl.org/ontology/dso#Remote':
-            $data['service'] = 'remote';
-            break;
-        case 'http://purl.org/ontology/dso#Openaccess':
-            $data['service'] = 'openaccess';
-            break;
-        default:
-            $data['service'] = (string)$serviceId;
-        }
-        if ($href = $this->getHref()) {
-            $data['href'] = (string)$href;
-        }
-        if ($title = $this->getTitle()) {
-            $data['title'] = $title;
-        }
-        if ($limitations = $this->getLimitations()) {
-            $data['limitation'] = array();
-            foreach ($limitations as $limitation) {
-                $data['limitation'][] = $limitation->jsonSerialize();
-            }
-        }
-        return $data;
-    }
-
     public function accept (Visitor $visitor) : void
     {
         foreach ($this->getLimitations() as $limitation) {

@@ -26,9 +26,8 @@ declare(strict_types=1);
 namespace SUBHH\DAIA\Model;
 
 use DateTimeImmutable;
-use JsonSerializable;
 
-final class Unavailable extends Availability implements JsonSerializable
+final class Unavailable extends Availability
 {
     /** @var ?DateTimeImmutable */
     private $expected;
@@ -69,21 +68,5 @@ final class Unavailable extends Availability implements JsonSerializable
     public function isExpectedUnknown () : ?bool
     {
         return $this->expectedUnknown;
-    }
-
-    /** @return mixed */
-    public function jsonSerialize ()
-    {
-        $data = parent::jsonSerialize();
-        if ($this->isExpectedUnknown()) {
-            $data['expected'] = 'unknown';
-        }
-        if ($expected = $this->getExpected()) {
-            $data['expected'] = $expected->format('Y-m-dP');
-        }
-        if (is_int($this->getQueue())) {
-            $data['queue'] = sprintf('%d', (int)$this->getQueue());
-        }
-        return $data;
     }
 }

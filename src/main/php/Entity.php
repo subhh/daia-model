@@ -26,9 +26,8 @@ declare(strict_types=1);
 namespace SUBHH\DAIA\Model;
 
 use Psr\Http\Message\UriInterface;
-use JsonSerializable;
 
-abstract class Entity implements JsonSerializable
+abstract class Entity
 {
     /** @var ?UriInterface */
     private $id;
@@ -38,22 +37,6 @@ abstract class Entity implements JsonSerializable
 
     /** @var ?string */
     private $content;
-
-    /** @return mixed */
-    public function jsonSerialize ()
-    {
-        $data = array();
-        if ($id = $this->getId()) {
-            $data['id'] = (string)$id;
-        }
-        if ($href = $this->getHref()) {
-            $data['href'] = (string)$href;
-        }
-        if ($content = $this->getContent()) {
-            $data['content'] = $content;
-        }
-        return $data;
-    }
 
     final public function setId (UriInterface $id) : void
     {

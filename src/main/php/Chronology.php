@@ -25,9 +25,7 @@ declare(strict_types=1);
 
 namespace SUBHH\DAIA\Model;
 
-use JsonSerializable;
-
-final class Chronology implements JsonSerializable
+final class Chronology
 {
     /** @var ?string */
     private $about;
@@ -40,15 +38,5 @@ final class Chronology implements JsonSerializable
     public function setAbout (string $about) : void
     {
         $this->about = $about;
-    }
-
-    /** @return mixed */
-    public function jsonSerialize ()
-    {
-        $data = array();
-        if ($about = $this->getAbout()) {
-            $data['about'] = $about;
-        }
-        return $data;
     }
 }

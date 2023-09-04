@@ -26,9 +26,8 @@ declare(strict_types=1);
 namespace SUBHH\DAIA\Model;
 
 use DateTimeImmutable;
-use JsonSerializable;
 
-final class DAIA implements JsonSerializable
+final class DAIA
 {
     /** @var Document[] */
     private $documents = array();
@@ -68,23 +67,6 @@ final class DAIA implements JsonSerializable
     public function getTimestamp () : ?DateTimeImmutable
     {
         return $this->timestamp;
-    }
-
-    /** @return mixed */
-    public function jsonSerialize ()
-    {
-        $data = array();
-        if ($institution = $this->getInstitution()) {
-            $data['institution'] = $institution->jsonSerialize();
-        }
-        $data['document'] = array();
-        foreach ($this->getDocuments() as $document) {
-            $data['document'][] = $document->jsonSerialize();
-        }
-        if ($timestamp = $this->getTimestamp()) {
-            $data['timestamp'] = $timestamp->format(DateTimeImmutable::ATOM);
-        }
-        return $data;
     }
 
     public function accept (Visitor $visitor) : void

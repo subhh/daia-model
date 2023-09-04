@@ -26,9 +26,8 @@ declare(strict_types=1);
 namespace SUBHH\DAIA\Model;
 
 use DateInterval;
-use JsonSerializable;
 
-final class Available extends Availability implements JsonSerializable
+final class Available extends Availability
 {
     /** @var ?DateInterval */
     private $delay;
@@ -56,18 +55,5 @@ final class Available extends Availability implements JsonSerializable
     public function isDelayUnknown () : ?bool
     {
         return $this->delayUnknown;
-    }
-
-    /** @return mixed */
-    public function jsonSerialize ()
-    {
-        $data = parent::jsonSerialize();
-        if ($this->isDelayUnknown()) {
-            $data['delay'] = 'unknown';
-        }
-        if ($delay = $this->getDelay()) {
-            $data['delay'] = $delay->format('%rP%yY%mM%dDT%hH%iM%sS');
-        }
-        return $data;
     }
 }

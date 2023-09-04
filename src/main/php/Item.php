@@ -26,9 +26,8 @@ declare(strict_types=1);
 namespace SUBHH\DAIA\Model;
 
 use Psr\Http\Message\UriInterface;
-use JsonSerializable;
 
-final class Item implements JsonSerializable
+final class Item
 {
     /** @var ?UriInterface */
     private $id;
@@ -160,46 +159,6 @@ final class Item implements JsonSerializable
     public function setPart (string $part) : void
     {
         $this->part = $part;
-    }
-
-    /** @return mixed */
-    public function jsonSerialize ()
-    {
-        $data = array();
-        if ($href = $this->getHref()) {
-            $data['href'] = (string)$href;
-        }
-        if ($label = $this->getLabel()) {
-            $data['label'] = $label;
-        }
-        if ($about = $this->getAbout()) {
-            $data['about'] = $about;
-        }
-        if ($part = $this->getPart()) {
-            $data['part'] = $part;
-        }
-        if ($chronology = $this->getChronology()) {
-            $data['chronology'] = $chronology->jsonSerialize();
-        }
-        if ($department = $this->getDepartment()) {
-            $data['department'] = $department->jsonSerialize();
-        }
-        if ($storage = $this->getStorage()) {
-            $data['storage'] = $storage->jsonSerialize();
-        }
-        if ($this->getAvailable()) {
-            $data['available'] = array();
-            foreach ($this->getAvailable() as $available) {
-                $data['available'][] = $available->jsonSerialize();
-            }
-        }
-        if ($this->getUnavailable()) {
-            $data['unavailable'] = array();
-            foreach ($this->getUnavailable() as $unavailable) {
-                $data['unavailable'][] = $unavailable->jsonSerialize();
-            }
-        }
-        return $data;
     }
 
     public function accept (Visitor $visitor) : void
