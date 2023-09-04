@@ -28,11 +28,12 @@ namespace SUBHH\DAIA\Model;
 use ArrayObject;
 use SplStack;
 
-class JsonSerializer extends DefaultVisitor
+class JsonSerializer implements Visitor
 {
     /** @var SplStack<ArrayObject<string, mixed>> */
     private $json;
 
+    /** @return mixed */
     public function serialize (DAIA $daia)
     {
         $this->json = new SplStack();
@@ -53,6 +54,54 @@ class JsonSerializer extends DefaultVisitor
         if ($data = $this->serializeEntity($department)) {
             $this->json->top()['department'] = $data;
         }
+    }
+
+    public function visitChronology (Chronology $chronology) : void
+    {
+        if ($about = $chronology->getAbout()) {
+            $this->json->top()['chronology'] = $about;
+        }
+    }
+
+    public function visitAvailable (Available $available) : void
+    {
+        $data = $this->serializeAvailability($available);
+
+        /** @var ArrayObject<string, string> */
+        $jsonAvailable = new ArrayObject($data);
+        if ($available->isDelayUnknown()) {
+            $jsonAvailable['delay'] = 'unkown';
+        }
+        if ($delay = $available->getDelay()) {
+            $jsonAvailable['delay'] = $delay->format('%rP%yY%mM%dDT%hH%iM%sS');
+        }
+
+        $this->json->top()['available'][] = $jsonAvailable;
+        $this->json->push($jsonAvailable);
+        $available->accept($this);
+        $this->json->pop();
+    }
+
+    public function visitUnavailable (Unavailable $unavailable) : void
+    {
+        $data = $this->serializeAvailability($unavailable);
+
+        /** @var ArrayObject<string, string> */
+        $jsonUnavailable = new ArrayObject($data);
+        if ($unavailable->isExpectedUnknown()) {
+            $jsonUnavailable['expected'] = 'unkown';
+        }
+        if ($expected = $unavailable->getExpected()) {
+            $jsonUnavailable['expected'] = $expected->format('Y-m-dP');
+        }
+        if (is_int($unavailable->getQueue())) {
+            $jsonUnavailable['queue'] = sprintf('%d', (int)$unavailable->getQueue());
+        }
+
+        $this->json->top()['available'][] = $jsonUnavailable;
+        $this->json->push($jsonUnavailable);
+        $unavailable->accept($this);
+        $this->json->pop();
     }
 
     public function visitDocument (Document $document) : void
@@ -132,6 +181,39 @@ class JsonSerializer extends DefaultVisitor
         }
         if ($content = $entity->getContent()) {
             $data['content'] = $content;
+        }
+        return $data;
+    }
+
+    /** @return array<string, string> */
+    private function serializeAvailability (Availability $availability) : array
+    {
+        $data = array();
+        $serviceId = $availability->getService()->getId();
+        switch ((string)$serviceId) {
+        case 'http://purl.org/ontology/dso#Presentation':
+            $data['service'] = 'presentation';
+            break;
+        case 'http://purl.org/ontology/dso#Loan':
+            $data['service'] = 'loan';
+            break;
+        case 'http://purl.org/ontology/dso#Interloan':
+            $data['service'] = 'interloan';
+            break;
+        case 'http://purl.org/ontology/dso#Remote':
+            $data['service'] = 'remote';
+            break;
+        case 'http://purl.org/ontology/dso#Openaccess':
+            $data['service'] = 'openaccess';
+            break;
+        default:
+            $data['service'] = (string)$serviceId;
+        }
+        if ($href = $availability->getHref()) {
+            $data['href'] = (string)$href;
+        }
+        if ($title = $availability->getTitle()) {
+            $data['title'] = $title;
         }
         return $data;
     }
