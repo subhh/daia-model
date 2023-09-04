@@ -33,7 +33,7 @@ class JsonSerializer extends DefaultVisitor
     /** @var SplStack<ArrayObject<string, mixed>> */
     private $json;
 
-    public function serialize (DAIA $daia) : mixed
+    public function serialize (DAIA $daia)
     {
         $this->json = new SplStack();
 
