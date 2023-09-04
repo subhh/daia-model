@@ -29,7 +29,7 @@ use Psr\Http\Message\UriInterface;
 
 abstract class Availability
 {
-    /** @var UriInterface */
+    /** @var Service */
     private $service;
 
     /** @var ?UriInterface */
@@ -41,12 +41,12 @@ abstract class Availability
     /** @var Limitation[] */
     private $limitations = array();
 
-    final public function __construct (UriInterface $service)
+    final public function __construct (Service $service)
     {
         $this->service = $service;
     }
 
-    final public function getService () : UriInterface
+    final public function getService () : Service
     {
         return $this->service;
     }
@@ -86,8 +86,8 @@ abstract class Availability
     public function jsonSerialize ()
     {
         $data = array();
-        $service = $this->getService();
-        switch ((string)$service) {
+        $serviceId = $this->getService()->getId();
+        switch ((string)$serviceId) {
         case 'http://purl.org/ontology/dso#Presentation':
             $data['service'] = 'presentation';
             break;
@@ -104,7 +104,7 @@ abstract class Availability
             $data['service'] = 'openaccess';
             break;
         default:
-            $data['service'] = (string)$service;
+            $data['service'] = (string)$serviceId;
         }
         if ($href = $this->getHref()) {
             $data['href'] = (string)$href;
