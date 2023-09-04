@@ -164,7 +164,27 @@ class JsonSerializer implements Visitor
 
     public function visitService (Service $service) : void
     {
-        $this->json->top()['service'] = (string)$service->getId();
+        $data = $this->json->top();
+        $serviceId = $service->getId();
+        switch ((string)$serviceId) {
+        case 'http://purl.org/ontology/dso#Presentation':
+            $data['service'] = 'presentation';
+            break;
+        case 'http://purl.org/ontology/dso#Loan':
+            $data['service'] = 'loan';
+            break;
+        case 'http://purl.org/ontology/dso#Interloan':
+            $data['service'] = 'interloan';
+            break;
+        case 'http://purl.org/ontology/dso#Remote':
+            $data['service'] = 'remote';
+            break;
+        case 'http://purl.org/ontology/dso#Openaccess':
+            $data['service'] = 'openaccess';
+            break;
+        default:
+            $data['service'] = (string)$serviceId;
+        }
     }
 
     public function visitStorage (Storage $storage) : void
@@ -194,26 +214,6 @@ class JsonSerializer implements Visitor
     private function serializeAvailability (Availability $availability) : array
     {
         $data = array();
-        $serviceId = $availability->getService()->getId();
-        switch ((string)$serviceId) {
-        case 'http://purl.org/ontology/dso#Presentation':
-            $data['service'] = 'presentation';
-            break;
-        case 'http://purl.org/ontology/dso#Loan':
-            $data['service'] = 'loan';
-            break;
-        case 'http://purl.org/ontology/dso#Interloan':
-            $data['service'] = 'interloan';
-            break;
-        case 'http://purl.org/ontology/dso#Remote':
-            $data['service'] = 'remote';
-            break;
-        case 'http://purl.org/ontology/dso#Openaccess':
-            $data['service'] = 'openaccess';
-            break;
-        default:
-            $data['service'] = (string)$serviceId;
-        }
         if ($href = $availability->getHref()) {
             $data['href'] = (string)$href;
         }
