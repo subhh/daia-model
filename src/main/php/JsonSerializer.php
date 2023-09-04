@@ -37,7 +37,7 @@ class JsonSerializer extends DefaultVisitor
     {
         $this->json = new SplStack();
 
-        $daia->accept($this);
+        $daia->visitDAIA($daia);
 
         return json_encode($this->json->pop(), JSON_THROW_ON_ERROR);
     }
