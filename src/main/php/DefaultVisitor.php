@@ -63,6 +63,10 @@ class DefaultVisitor implements Visitor
     {}
 
     /** @suppress PhanUnusedPublicMethodParameter */
+    public function visitService (Service $service) : void
+    {}
+
+    /** @suppress PhanUnusedPublicMethodParameter */
     public function visitStorage (Storage $storage) : void
     {}
 

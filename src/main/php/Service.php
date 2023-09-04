@@ -27,32 +27,18 @@ namespace SUBHH\DAIA\Model;
 
 use Psr\Http\Message\UriInterface;
 
-final class Service implements ServiceInterface
+final class Service
 {
     /** @var UriInterface */
     private $id;
 
-    /** @var ?string */
-    private $label;
-
-    public function __construct (UriInterface $id, ?string $label = null)
+    public function __construct (UriInterface $id)
     {
         $this->id = $id;
-        $this->label = $label;
     }
 
     public function getId () : UriInterface
     {
         return $this->id;
-    }
-
-    public function getLabel () : ?string
-    {
-        return $this->label;
-    }
-
-    public function setLabel (string $label) : void
-    {
-        $this->label = $label;
     }
 }
