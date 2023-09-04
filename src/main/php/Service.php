@@ -38,6 +38,7 @@ final class Service implements ServiceInterface
     public function __construct (UriInterface $id, ?string $label = null)
     {
         $this->id = $id;
+        $this->label = $label;
     }
 
     public function getId () : UriInterface
