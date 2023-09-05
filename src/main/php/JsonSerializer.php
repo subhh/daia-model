@@ -162,11 +162,6 @@ class JsonSerializer implements Visitor
         }
     }
 
-    public function visitService (Service $service) : void
-    {
-        $this->json->top()['service'] = (string)$service->getId();
-    }
-
     public function visitStorage (Storage $storage) : void
     {
         if ($data = $this->serializeEntity($storage)) {

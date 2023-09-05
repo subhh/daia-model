@@ -35,7 +35,6 @@ interface Visitor
     public function visitInstitution (Institution $institution) : void;
     public function visitItem (Item $item) : void;
     public function visitLimitation (Limitation $limitation) : void;
-    public function visitService (Service $service) : void;
     public function visitStorage (Storage $storage) : void;
     public function visitUnavailable (Unavailable $available) : void;
 }

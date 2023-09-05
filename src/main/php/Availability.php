@@ -84,7 +84,6 @@ abstract class Availability
 
     public function accept (Visitor $visitor) : void
     {
-        $visitor->visitService($this->service);
         foreach ($this->getLimitations() as $limitation) {
             $visitor->visitLimitation($limitation);
         }
