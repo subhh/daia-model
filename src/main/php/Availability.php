@@ -29,7 +29,7 @@ use Psr\Http\Message\UriInterface;
 
 abstract class Availability
 {
-    /** @var Service */
+    /** @var UriInterface */
     private $service;
 
     /** @var ?UriInterface */
@@ -41,12 +41,12 @@ abstract class Availability
     /** @var Limitation[] */
     private $limitations = array();
 
-    final public function __construct (Service $service)
+    final public function __construct (UriInterface $service)
     {
         $this->service = $service;
     }
 
-    final public function getService () : Service
+    final public function getService () : UriInterface
     {
         return $this->service;
     }

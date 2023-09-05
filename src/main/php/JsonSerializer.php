@@ -189,7 +189,7 @@ class JsonSerializer implements Visitor
     private function serializeAvailability (Availability $availability) : array
     {
         $data = array();
-        $serviceId = $availability->getService()->getId();
+        $serviceId = $availability->getService();
         switch ((string)$serviceId) {
         case 'http://purl.org/ontology/dso#Presentation':
             $data['service'] = 'presentation';
