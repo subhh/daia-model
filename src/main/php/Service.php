@@ -25,46 +25,14 @@ declare(strict_types=1);
 
 namespace SUBHH\DAIA\Model;
 
-use Psr\Http\Message\UriInterface;
-
-abstract class Entity
+final class Service
 {
-    /** @var ?UriInterface */
-    private $id;
+    const PRESENTATION = "http://purl.org/ontology/dso#Presentation";
+    const OPENACCESS = "http://purl.org/ontology/dso#Openaccess";
+    const INTERLOAN = "http://purl.org/ontology/dso#Interloan";
+    const REMOTE = "http://purl.org/ontology/dso#Remote";
+    const LOAN = "http://purl.org/ontology/dso#Loan";
 
-    /** @var ?UriInterface */
-    private $href;
-
-    /** @var ?string */
-    private $content;
-
-    final public function setId (UriInterface $id) : void
-    {
-        $this->id = $id;
-    }
-
-    final public function getId () : ?UriInterface
-    {
-        return $this->id;
-    }
-
-    final public function setHref (UriInterface $href) : void
-    {
-        $this->href = $href;
-    }
-
-    final public function getHref () : ?UriInterface
-    {
-        return $this->href;
-    }
-
-    final public function setContent (string $content) : void
-    {
-        $this->content = $content;
-    }
-
-    final public function getContent () : ?string
-    {
-        return $this->content;
-    }
+    private function __construct ()
+    {}
 }

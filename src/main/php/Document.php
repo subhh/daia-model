@@ -26,9 +26,8 @@ declare(strict_types=1);
 namespace SUBHH\DAIA\Model;
 
 use Psr\Http\Message\UriInterface;
-use JsonSerializable;
 
-final class Document implements JsonSerializable
+final class Document
 {
     /** @var UriInterface */
     private $id;
@@ -94,29 +93,6 @@ final class Document implements JsonSerializable
     public function setRequested (string $requested) : void
     {
         $this->requested = $requested;
-    }
-
-    /** @return mixed */
-    public function jsonSerialize ()
-    {
-        $data = array();
-        $data['id'] = (string)$this->getId();
-        if ($href = $this->getHref()) {
-            $data['href'] = (string)$href;
-        }
-        if ($about = $this->getAbout()) {
-            $data['about'] = $about;
-        }
-        if ($requested = $this->getRequested()) {
-            $data['requested'] = $requested;
-        }
-        if ($this->getItems()) {
-            $data['items'] = array();
-            foreach ($this->getItems() as $item) {
-                $data['items'][] = $item->jsonSerialize();
-            }
-        }
-        return $data;
     }
 
     public function accept (Visitor $visitor) : void

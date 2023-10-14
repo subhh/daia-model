@@ -26,9 +26,8 @@ declare(strict_types=1);
 namespace SUBHH\DAIA\Model;
 
 use DateTimeImmutable;
-use JsonSerializable;
 
-final class Unavailable extends Availability implements JsonSerializable
+class Unavailable extends Availability
 {
     /** @var ?DateTimeImmutable */
     private $expected;
@@ -39,51 +38,35 @@ final class Unavailable extends Availability implements JsonSerializable
     /** @var int */
     private $queue;
 
-    public function getQueue () : ?int
+    final public function getQueue () : ?int
     {
         return $this->queue;
     }
 
-    public function setQueue (int $queue) : void
+    final public function setQueue (int $queue) : void
     {
         $this->queue = $queue;
     }
 
-    public function setExpected (DateTimeImmutable $expected) : void
+    final public function setExpected (DateTimeImmutable $expected) : void
     {
         $this->expectedUnknown = false;
         $this->expected = $expected;
     }
 
-    public function getExpected () : ?DateTimeImmutable
+    final public function getExpected () : ?DateTimeImmutable
     {
         return $this->expected;
     }
 
-    public function setExpectedUnknown () : void
+    final public function setExpectedUnknown () : void
     {
         $this->expectedUnknown = true;
         $this->expected = null;
     }
 
-    public function isExpectedUnknown () : ?bool
+    final public function isExpectedUnknown () : ?bool
     {
         return $this->expectedUnknown;
-    }
-
-    /** @return mixed */
-    public function jsonSerialize ()
-    {
-        $data = parent::jsonSerialize();
-        if ($this->isExpectedUnknown()) {
-            $data['expected'] = 'unknown';
-        }
-        if ($expected = $this->getExpected()) {
-            $data['expected'] = $expected->format('Y-m-dP');
-        }
-        if (is_int($this->getQueue())) {
-            $data['queue'] = sprintf('%d', (int)$this->getQueue());
-        }
-        return $data;
     }
 }
