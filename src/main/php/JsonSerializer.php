@@ -191,19 +191,19 @@ class JsonSerializer implements Visitor
         $data = array();
         $serviceId = $availability->getService();
         switch ((string)$serviceId) {
-        case 'http://purl.org/ontology/dso#Presentation':
+        case Service::PRESENTATION:
             $data['service'] = 'presentation';
             break;
-        case 'http://purl.org/ontology/dso#Loan':
+        case Service::LOAN:
             $data['service'] = 'loan';
             break;
-        case 'http://purl.org/ontology/dso#Interloan':
+        case Service::INTERLOAN:
             $data['service'] = 'interloan';
             break;
-        case 'http://purl.org/ontology/dso#Remote':
+        case Service::REMOTE:
             $data['service'] = 'remote';
             break;
-        case 'http://purl.org/ontology/dso#Openaccess':
+        case Service::OPENACCESS:
             $data['service'] = 'openaccess';
             break;
         default:
