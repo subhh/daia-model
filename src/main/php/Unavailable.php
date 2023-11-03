@@ -27,7 +27,7 @@ namespace SUBHH\DAIA\Model;
 
 use DateTimeImmutable;
 
-class Unavailable extends Availability
+final class Unavailable extends Availability
 {
     /** @var ?DateTimeImmutable */
     private $expected;
@@ -38,34 +38,34 @@ class Unavailable extends Availability
     /** @var int */
     private $queue;
 
-    final public function getQueue () : ?int
+    public function getQueue () : ?int
     {
         return $this->queue;
     }
 
-    final public function setQueue (int $queue) : void
+    public function setQueue (int $queue) : void
     {
         $this->queue = $queue;
     }
 
-    final public function setExpected (DateTimeImmutable $expected) : void
+    public function setExpected (DateTimeImmutable $expected) : void
     {
         $this->expectedUnknown = false;
         $this->expected = $expected;
     }
 
-    final public function getExpected () : ?DateTimeImmutable
+    public function getExpected () : ?DateTimeImmutable
     {
         return $this->expected;
     }
 
-    final public function setExpectedUnknown () : void
+    public function setExpectedUnknown () : void
     {
         $this->expectedUnknown = true;
         $this->expected = null;
     }
 
-    final public function isExpectedUnknown () : ?bool
+    public function isExpectedUnknown () : ?bool
     {
         return $this->expectedUnknown;
     }

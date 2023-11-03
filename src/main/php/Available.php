@@ -27,7 +27,7 @@ namespace SUBHH\DAIA\Model;
 
 use DateInterval;
 
-class Available extends Availability
+final class Available extends Availability
 {
     /** @var ?DateInterval */
     private $delay;
@@ -35,24 +35,24 @@ class Available extends Availability
     /** @var ?bool */
     private $delayUnknown;
 
-    final public function getDelay () : ?DateInterval
+    public function getDelay () : ?DateInterval
     {
         return $this->delay;
     }
 
-    final public function setDelay (DateInterval $delay) : void
+    public function setDelay (DateInterval $delay) : void
     {
         $this->delay = $delay;
         $this->delayUnknown = false;
     }
 
-    final public function setDelayUnknown () : void
+    public function setDelayUnknown () : void
     {
         $this->delay = null;
         $this->delayUnknown = true;
     }
 
-    final public function isDelayUnknown () : ?bool
+    public function isDelayUnknown () : ?bool
     {
         return $this->delayUnknown;
     }
