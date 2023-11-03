@@ -29,6 +29,8 @@ use Psr\Http\Message\UriInterface;
 
 abstract class Availability
 {
+    use ExtraPropertyTrait;
+
     /** @var UriInterface */
     private $service;
 

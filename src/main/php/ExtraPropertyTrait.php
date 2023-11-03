@@ -25,48 +25,23 @@ declare(strict_types=1);
 
 namespace SUBHH\DAIA\Model;
 
-use Psr\Http\Message\UriInterface;
-
-abstract class Entity
+trait ExtraPropertyTrait
 {
-    use ExtraPropertyTrait;
+    /** @var array<string, mixed> */
+    private $properties = array();
 
-    /** @var ?UriInterface */
-    private $id;
-
-    /** @var ?UriInterface */
-    private $href;
-
-    /** @var ?string */
-    private $content;
-
-    final public function setId (UriInterface $id) : void
+    /**
+     * @param mixed $defaultValue
+     * @return mixed
+     */
+    final public function getExtraProperty (string $name, $defaultValue = null)
     {
-        $this->id = $id;
+        return $this->properties[$name] ?? $defaultValue;
     }
 
-    final public function getId () : ?UriInterface
+    /** @param mixed $value */
+    final public function setExtraProperty (string $name, $value) : void
     {
-        return $this->id;
-    }
-
-    final public function setHref (UriInterface $href) : void
-    {
-        $this->href = $href;
-    }
-
-    final public function getHref () : ?UriInterface
-    {
-        return $this->href;
-    }
-
-    final public function setContent (string $content) : void
-    {
-        $this->content = $content;
-    }
-
-    final public function getContent () : ?string
-    {
-        return $this->content;
+        $this->properties[$name] = $value;
     }
 }

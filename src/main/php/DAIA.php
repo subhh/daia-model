@@ -29,6 +29,8 @@ use DateTimeImmutable;
 
 final class DAIA
 {
+    use ExtraPropertyTrait;
+
     /** @var Document[] */
     private $documents = array();
 

@@ -29,6 +29,8 @@ use Psr\Http\Message\UriInterface;
 
 final class Item
 {
+    use ExtraPropertyTrait;
+
     /** @var ?UriInterface */
     private $id;
 
