@@ -27,7 +27,7 @@ namespace SUBHH\DAIA\Model;
 
 use Psr\Http\Message\UriInterface;
 
-class Document
+final class Document
 {
     /** @var UriInterface */
     private $id;
@@ -44,58 +44,58 @@ class Document
     /** @var ?string */
     private $about;
 
-    final public function __construct (UriInterface $id)
+    public function __construct (UriInterface $id)
     {
         $this->id = $id;
     }
 
-    final public function getId () : ?UriInterface
+    public function getId () : ?UriInterface
     {
         return $this->id;
     }
 
-    final public function setHref (UriInterface $href) : void
+    public function setHref (UriInterface $href) : void
     {
         $this->href = $href;
     }
 
-    final public function getHref () : ?UriInterface
+    public function getHref () : ?UriInterface
     {
         return $this->href;
     }
 
     /** @return Item[] */
-    final public function getItems () : array
+    public function getItems () : array
     {
         return $this->items;
     }
 
-    final public function addItem (Item $item) : void
+    public function addItem (Item $item) : void
     {
         $this->items[] = $item;
     }
 
-    final public function getAbout () : ?string
+    public function getAbout () : ?string
     {
         return $this->about;
     }
 
-    final public function setAbout (string $about) : void
+    public function setAbout (string $about) : void
     {
         $this->about = $about;
     }
 
-    final public function getRequested () : ?string
+    public function getRequested () : ?string
     {
         return $this->requested;
     }
 
-    final public function setRequested (string $requested) : void
+    public function setRequested (string $requested) : void
     {
         $this->requested = $requested;
     }
 
-    final public function accept (Visitor $visitor) : void
+    public function accept (Visitor $visitor) : void
     {
         foreach ($this->getItems() as $item) {
             $visitor->visitItem($item);
