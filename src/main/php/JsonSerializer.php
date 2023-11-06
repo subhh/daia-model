@@ -162,6 +162,13 @@ class JsonSerializer implements Visitor
         }
     }
 
+    public function visitProperties (Properties $properties) : void
+    {
+        if ($properties->count() > 0) {
+            $this->json->top()['properties'] = json_encode($properties, JSON_THROW_ON_ERROR);
+        }
+    }
+
     public function visitStorage (Storage $storage) : void
     {
         if ($data = $this->serializeEntity($storage)) {

@@ -37,4 +37,5 @@ interface Visitor
     public function visitLimitation (Limitation $limitation) : void;
     public function visitStorage (Storage $storage) : void;
     public function visitUnavailable (Unavailable $available) : void;
+    public function visitProperties (Properties $properties) : void;
 }
