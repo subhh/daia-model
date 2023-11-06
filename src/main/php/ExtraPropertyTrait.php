@@ -44,4 +44,10 @@ trait ExtraPropertyTrait
     {
         $this->properties[$name] = $value;
     }
+
+    /** @return array<string,mixed> */
+    final public function getExtraProperties () : array
+    {
+        return $this->properties;
+    }
 }
