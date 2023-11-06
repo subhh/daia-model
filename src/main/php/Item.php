@@ -189,6 +189,15 @@ final class Item
 
     public function accept (Visitor $visitor) : void
     {
+        if ($this->department !== null) {
+            $visitor->visitDepartment($this->department);
+        }
+        if ($this->storage !== null) {
+            $visitor->visitStorage($this->storage);
+        }
+        if ($this->chronology !== null) {
+            $visitor->visitChronology($this->chronology);
+        }
         foreach ($this->getAvailable() as $available) {
             $visitor->visitAvailable($available);
         }
