@@ -198,6 +198,9 @@ final class Item
         if ($this->chronology !== null) {
             $visitor->visitChronology($this->chronology);
         }
+        if ($this->properties !== null) {
+            $visitor->visitProperties($this->properties);
+        }
         foreach ($this->getAvailable() as $available) {
             $visitor->visitAvailable($available);
         }

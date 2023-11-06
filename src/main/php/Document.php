@@ -99,6 +99,9 @@ final class Document
 
     public function accept (Visitor $visitor) : void
     {
+        if ($this->properties !== null) {
+            $visitor->visitProperties($this->properties);
+        }
         foreach ($this->getItems() as $item) {
             $visitor->visitItem($item);
         }

@@ -73,6 +73,9 @@ final class DAIA
 
     public function accept (Visitor $visitor) : void
     {
+        if ($this->properties !== null) {
+            $visitor->visitProperties($this->properties);
+        }
         if ($institution = $this->getInstitution()) {
             $visitor->visitInstitution($institution);
         }

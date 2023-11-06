@@ -29,8 +29,6 @@ use Psr\Http\Message\UriInterface;
 
 abstract class Entity
 {
-    use PropertiesTrait;
-
     /** @var ?UriInterface */
     private $id;
 

@@ -27,8 +27,6 @@ namespace SUBHH\DAIA\Model;
 
 final class Chronology
 {
-    use PropertiesTrait;
-    
     /** @var ?string */
     private $about;
 
