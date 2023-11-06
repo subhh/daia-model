@@ -129,6 +129,9 @@ class JsonSerializer implements Visitor
     {
         /** @var ArrayObject<string, string> */
         $jsonItem = new ArrayObject();
+        if ($id = $item->getId()) {
+            $jsonItem['id'] = (string)$id;
+        }
         if ($href = $item->getHref()) {
             $jsonItem['href'] = (string)$href;
         }
