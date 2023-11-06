@@ -2,17 +2,17 @@
 
 /*
  * This file is part of DAIA Model.
- *
+ * 
  * DAIA Model is free software: you can redistribute it and/or modify it
  * under the terms of the GNU General Public License as published by the
  * Free Software Foundation, either version 3 of the License, or (at your
  * option) any later version.
- *
+ * 
  * DAIA Model is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
  * for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with DAIA Model. If not, see <https://www.gnu.org/licenses/>.
  *
@@ -25,20 +25,16 @@ declare(strict_types=1);
 
 namespace SUBHH\DAIA\Model;
 
-final class Chronology
+trait PropertiesTrait
 {
-    use PropertiesTrait;
-    
-    /** @var ?string */
-    private $about;
+    /** @var Properties */
+    private $properties;
 
-    public function getAbout () : ?string
+    final public function getProperties () : Properties
     {
-        return $this->about;
-    }
-
-    public function setAbout (string $about) : void
-    {
-        $this->about = $about;
+        if ($this->properties === null) {
+            $this->properties = new Properties();
+        }
+        return $this->properties;
     }
 }

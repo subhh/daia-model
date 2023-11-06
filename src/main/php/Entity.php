@@ -29,7 +29,7 @@ use Psr\Http\Message\UriInterface;
 
 abstract class Entity
 {
-    use ExtraPropertyTrait;
+    use PropertiesTrait;
 
     /** @var ?UriInterface */
     private $id;
