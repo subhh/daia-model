@@ -64,8 +64,7 @@ final class DAIASimpleAvailable extends DAIASimple
         return $this->delay;
     }
 
-    /** @return mixed */
-    public function jsonSerialize ()
+    public function jsonSerialize () : mixed
     {
         $data = parent::jsonSerialize();
         if ($this->isDelayUnknown()) {

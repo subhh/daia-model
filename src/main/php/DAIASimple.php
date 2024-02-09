@@ -94,8 +94,7 @@ abstract class DAIASimple implements JsonSerializable
         return $this->limitation;
     }
 
-    /** @return mixed */
-    public function jsonSerialize ()
+    public function jsonSerialize () : mixed
     {
         $data = array();
         $data['available'] = $this->available;

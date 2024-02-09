@@ -77,8 +77,7 @@ final class DAIASimpleUnavailable extends DAIASimple
         return $this->queue;
     }
 
-    /** @return mixed */
-    public function jsonSerialize ()
+    public function jsonSerialize () : mixed
     {
         $data = parent::jsonSerialize();
         if (is_int($this->getQueue())) {
