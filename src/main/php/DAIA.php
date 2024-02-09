@@ -25,6 +25,8 @@ declare(strict_types=1);
 
 namespace SUBHH\DAIA\Model;
 
+use Psr\Http\Message\UriInterface;
+
 use DateTimeImmutable;
 
 final class DAIA
@@ -33,6 +35,9 @@ final class DAIA
 
     /** @var Document[] */
     private $documents = array();
+
+    /** @var array<string, Document> */
+    private $documentsById = array();
 
     /** @var ?Institution */
     private $institution;
@@ -46,9 +51,15 @@ final class DAIA
         return $this->documents;
     }
 
+    public function getDocumentById (string | UriInterface $id) : ?Document
+    {
+        return $this->documentsById[strval($id)] ?? null;
+    }
+
     public function addDocument (Document $document) : void
     {
         $this->documents[] = $document;
+        $this->documentsById[strval($document->getId())] = $document;
     }
 
     public function getInstitution () : ?Institution
