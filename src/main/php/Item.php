@@ -140,13 +140,6 @@ final class Item
         $this->available[] = $available;
     }
 
-    public function removeAvailable (Available $available) : void
-    {
-        if ($index = array_search($available, $this->available, true)) {
-            unset($this->available[$index]);
-        }
-    }
-
     /** @return Available[] */
     public function getAvailable () : array
     {
@@ -156,13 +149,6 @@ final class Item
     public function addUnavailable (Unavailable $unavailable) : void
     {
         $this->unavailable[] = $unavailable;
-    }
-
-    public function removeUnavailable (Unavailable $unavailable) : void
-    {
-        if ($index = array_search($unavailable, $this->unavailable, true)) {
-            unset($this->unavailable[$index]);
-        }
     }
 
     /** @return Unavailable[] */
