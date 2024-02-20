@@ -61,6 +61,9 @@ final class Item
     /** @var Unavailable[] */
     private $unavailable = array();
 
+    /** @var array<string, Availability[]> */
+    private $availabilityByService = array();
+
     public function setId (UriInterface $id) : void
     {
         $this->id = $id;
@@ -115,13 +118,7 @@ final class Item
     public function getAvailabilityByService (string $service) : array
     {
         $service = Service::unabbreviate($service);
-        $availability = array();
-        foreach ($this->getAvailability() as $available) {
-            if ($service === (string)$available->getService()) {
-                $availability[] = $available;
-            }
-        }
-        return $availability;
+        return $this->availabilityByService[$service] ?? array();
     }
 
     /** @return Availability[] */
@@ -136,6 +133,7 @@ final class Item
     public function addAvailable (Available $available) : void
     {
         $this->available[] = $available;
+        $this->availabilityByService[(string)$available->getService()][] = $available;
     }
 
     /** @return Available[] */
@@ -147,6 +145,7 @@ final class Item
     public function addUnavailable (Unavailable $unavailable) : void
     {
         $this->unavailable[] = $unavailable;
+        $this->availabilityByService[(string)$unavailable->getService()][] = $unavailable;
     }
 
     /** @return Unavailable[] */
