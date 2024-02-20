@@ -25,6 +25,8 @@ declare(strict_types=1);
 
 namespace SUBHH\DAIA\Model;
 
+use Psr\Http\Message\UriInterface;
+
 final class Service
 {
     const PRESENTATION = "http://purl.org/ontology/dso#Presentation";
@@ -42,5 +44,23 @@ final class Service
             return 'http://purl.org/ontology/dso#' . ucfirst($service);
         }
         return $service;
+    }
+
+    public static function abbreviate (UriInterface | string $service) : string
+    {
+        $serviceId = strval($service);
+        switch ($serviceId) {
+        case Service::PRESENTATION:
+            return 'presentation';
+        case Service::LOAN:
+            return 'loan';
+        case Service::INTERLOAN:
+            return 'interloan';
+        case Service::REMOTE:
+            return 'remote';
+        case Service::OPENACCESS:
+            return 'openaccess';
+        }
+        return $serviceId;
     }
 }

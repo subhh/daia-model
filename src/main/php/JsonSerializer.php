@@ -199,26 +199,7 @@ class JsonSerializer implements Visitor
     private function serializeAvailability (Availability $availability) : array
     {
         $data = array();
-        $serviceId = $availability->getService();
-        switch ((string)$serviceId) {
-        case Service::PRESENTATION:
-            $data['service'] = 'presentation';
-            break;
-        case Service::LOAN:
-            $data['service'] = 'loan';
-            break;
-        case Service::INTERLOAN:
-            $data['service'] = 'interloan';
-            break;
-        case Service::REMOTE:
-            $data['service'] = 'remote';
-            break;
-        case Service::OPENACCESS:
-            $data['service'] = 'openaccess';
-            break;
-        default:
-            $data['service'] = (string)$serviceId;
-        }
+        $data['service'] = Service::abbreviate($availability->getService());
         if ($href = $availability->getHref()) {
             $data['href'] = (string)$href;
         }
