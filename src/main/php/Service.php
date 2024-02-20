@@ -35,4 +35,12 @@ final class Service
 
     private function __construct ()
     {}
+
+    public static function unabbreviate (string $service) : string
+    {
+        if (in_array($service, ['presentation', 'loan', 'interloan', 'remote', 'openaccess'], true)) {
+            return 'http://purl.org/ontology/dso#' . ucfirst($service);
+        }
+        return $service;
+    }
 }

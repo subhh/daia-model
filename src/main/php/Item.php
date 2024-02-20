@@ -114,9 +114,7 @@ final class Item
     /** @return Availability[] */
     public function getAvailabilityByService (string $service) : array
     {
-        if (in_array($service, ['presentation', 'loan', 'interloan', 'remote', 'openaccess'], true)) {
-            $service = 'http://purl.org/ontology/dso#' . ucfirst($service);
-        }
+        $service = Service::unabbreviate($service);
         $availability = array();
         foreach ($this->getAvailability() as $available) {
             if ($service === (string)$available->getService()) {
