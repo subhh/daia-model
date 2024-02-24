@@ -118,10 +118,20 @@ final class Item
         return $this->availability;
     }
 
+    public function addAvailable (Available $available) : void
+    {
+        $this->availability->add($available);
+    }
+
     /** @return Available[] */
     public function getAvailable () : array
     {
         return $this->getAvailabilityInformation()->getAvailable();
+    }
+
+    public function addUnavailable (Unavailable $unavailable) : void
+    {
+        $this->availability->add($unavailable);
     }
 
     /** @return Unavailable[] */
