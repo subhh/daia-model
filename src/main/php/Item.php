@@ -55,14 +55,13 @@ final class Item
     /** @var ?Chronology */
     private $chronology;
 
-    /** @var Available[] */
-    private $available = array();
+    /** @var AvailabilityInformation */
+    private $availability;
 
-    /** @var Unavailable[] */
-    private $unavailable = array();
-
-    /** @var array<string, Availability[]> */
-    private $availabilityByService = array();
+    public function __construct ()
+    {
+        $this->availability = new AvailabilityInformation();
+    }
 
     public function setId (UriInterface $id) : void
     {
@@ -114,44 +113,21 @@ final class Item
         return $this->chronology;
     }
 
-    /** @return Availability[] */
-    public function getAvailabilityByService (string $service) : array
+    public function getAvailabilityInformation () : AvailabilityInformation
     {
-        $service = Service::unabbreviate($service);
-        return $this->availabilityByService[$service] ?? array();
-    }
-
-    /** @return Availability[] */
-    public function getAvailability () : array
-    {
-        return array_merge(
-            $this->getAvailable(),
-            $this->getUnavailable(),
-        );
-    }
-
-    public function addAvailable (Available $available) : void
-    {
-        $this->available[] = $available;
-        $this->availabilityByService[(string)$available->getService()][] = $available;
+        return $this->availability;
     }
 
     /** @return Available[] */
     public function getAvailable () : array
     {
-        return $this->available;
-    }
-
-    public function addUnavailable (Unavailable $unavailable) : void
-    {
-        $this->unavailable[] = $unavailable;
-        $this->availabilityByService[(string)$unavailable->getService()][] = $unavailable;
+        return $this->getAvailabilityInformation()->getAvailable();
     }
 
     /** @return Unavailable[] */
     public function getUnavailable () : array
     {
-        return $this->unavailable;
+        return $this->getAvailabilityInformation()->getUnavailable();
     }
 
     public function setDepartment (Department $department) : void
