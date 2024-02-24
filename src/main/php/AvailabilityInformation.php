@@ -46,16 +46,6 @@ final class AvailabilityInformation implements IteratorAggregate
         return new IteratorIterator($this->availability);
     }
 
-    /** @return string[] */
-    public function getServiceIds () : array
-    {
-        $serviceIds = array();
-        foreach ($this->availability as $availability) {
-            $serviceIds[] = strval($availability->getService());
-        }
-        return array_unique($serviceIds);
-    }
-
     public function add (Availability $availability) : void
     {
         $this->availability->attach($availability);
