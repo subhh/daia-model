@@ -25,9 +25,13 @@ declare(strict_types=1);
 
 namespace SUBHH\DAIA\Model;
 
+use Iterator;
+use IteratorAggregate;
+use IteratorIterator;
 use SplObjectStorage;
 
-final class AvailabilityInformation
+/** @implements IteratorAggregate<Availability, null> */
+final class AvailabilityInformation implements IteratorAggregate
 {
     /** @var SplObjectStorage<Availability, null> */
     private $availability;
@@ -35,6 +39,11 @@ final class AvailabilityInformation
     public function __construct ()
     {
         $this->availability = new SplObjectStorage();
+    }
+
+    public function getIterator () : Iterator
+    {
+        return new IteratorIterator($this->availability);
     }
 
     public function add (Availability $availability) : void
