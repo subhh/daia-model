@@ -40,9 +40,6 @@ final class Document
     /** @var Item[] */
     private $items = array();
 
-    /** @var array<string, Item> */
-    private $itemsById = array();
-
     /** @var ?string */
     private $requested;
 
@@ -77,13 +74,17 @@ final class Document
 
     public function getItemById (string | UriInterface $id) : ?Item
     {
-        return $this->itemsById[strval($id)] ?? null;
+        $id = strval($id);
+        foreach ($this->getItems() as $item) {
+            if (strval($item->getId()) === $id) {
+                return $item;
+            }
+        }
     }
 
     public function addItem (Item $item) : void
     {
         $this->items[] = $item;
-        $this->itemsById[strval($item->getId())] = $item;
     }
 
     public function getAbout () : ?string
