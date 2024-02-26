@@ -36,14 +36,19 @@ final class DAIA
     /** @var Document[] */
     private $documents = array();
 
-    /** @var array<string, Document> */
-    private $documentsById = array();
-
     /** @var ?Institution */
     private $institution;
 
     /** @var ?DateTimeImmutable */
     private $timestamp;
+
+    /** @param Document[] $documents */
+    public function setDocuments (array $documents) : void
+    {
+        foreach ($documents as $document) {
+            $this->addDocument($document);
+        }
+    }
 
     /** @return Document[] */
     public function getDocuments () : array
@@ -53,13 +58,18 @@ final class DAIA
 
     public function getDocumentById (string | UriInterface $id) : ?Document
     {
-        return $this->documentsById[strval($id)] ?? null;
+        $id = strval($id);
+        foreach ($this->documents as $document) {
+            if (strval($document->getId()) === $id) {
+                return $document;
+            }
+        }
+        return null;
     }
 
     public function addDocument (Document $document) : void
     {
         $this->documents[] = $document;
-        $this->documentsById[strval($document->getId())] = $document;
     }
 
     public function getInstitution () : ?Institution

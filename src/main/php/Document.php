@@ -66,6 +66,16 @@ final class Document
         return $this->href;
     }
 
+
+    /** @param Item[] $items */
+    public function setItems (array $items) : void
+    {
+        $this->items = array();
+        foreach ($items as $item) {
+            $this->addItem($item);
+        }
+    }
+
     /** @return Item[] */
     public function getItems () : array
     {
@@ -80,6 +90,7 @@ final class Document
                 return $item;
             }
         }
+        return null;
     }
 
     public function addItem (Item $item) : void
