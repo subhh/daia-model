@@ -98,7 +98,7 @@ class JsonSerializer implements Visitor
             $jsonUnavailable['queue'] = sprintf('%d', (int)$unavailable->getQueue());
         }
 
-        $this->json->top()['available'][] = $jsonUnavailable;
+        $this->json->top()['unavailable'][] = $jsonUnavailable;
         $this->json->push($jsonUnavailable);
         $unavailable->accept($this);
         $this->json->pop();
