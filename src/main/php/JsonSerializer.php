@@ -36,11 +36,15 @@ class JsonSerializer implements Visitor
     /** @return mixed */
     public function serialize (DAIA $daia)
     {
+        return json_encode($this->createJsonEncodable($daia), JSON_THROW_ON_ERROR);
+    }
+
+    /** @return ArrayObject<String, mixed> */
+    public function createJsonEncodable (DAIA $daia) : ArrayObject
+    {
         $this->json = new SplStack();
-
         $this->visitDAIA($daia);
-
-        return json_encode($this->json->pop(), JSON_THROW_ON_ERROR);
+        return $this->json->pop();
     }
 
     public function visitDAIA (DAIA $daia) : void
