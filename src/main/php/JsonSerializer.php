@@ -26,6 +26,7 @@ declare(strict_types=1);
 namespace SUBHH\DAIA\Model;
 
 use ArrayObject;
+use DateTimeInterface;
 use SplStack;
 
 class JsonSerializer implements Visitor
@@ -50,6 +51,9 @@ class JsonSerializer implements Visitor
     public function visitDAIA (DAIA $daia) : void
     {
         $this->json->push(new ArrayObject());
+        if ($timestamp = $daia->getTimestamp()) {
+            $this->json->top()['timestamp'] = $timestamp->format(DateTimeInterface::ATOM);
+        }
         $daia->accept($this);
     }
 
