@@ -28,8 +28,9 @@ namespace SUBHH\DAIA\Model;
 use Psr\Http\Message\UriInterface;
 
 use DateTimeImmutable;
+use JsonSerializable;
 
-final class DAIA
+final class DAIA implements JsonSerializable
 {
     use PropertiesTrait;
 
@@ -41,6 +42,17 @@ final class DAIA
 
     /** @var ?DateTimeImmutable */
     private $timestamp;
+
+    /** @var ?JsonSerializer */
+    private $jsonSerializer;
+
+    public function jsonSerialize () : mixed
+    {
+        if ($this->jsonSerializer === null) {
+            $this->jsonSerializer = new JsonSerializer();
+        }
+        return $this->jsonSerializer->createJsonEncodable($this);
+    }
 
     /** @param Document[] $documents */
     public function setDocuments (array $documents) : void
