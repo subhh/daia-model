@@ -109,4 +109,10 @@ abstract class DAIASimple implements JsonSerializable
         return $data;
     }
 
+    public function __clone () : void
+    {
+        if ($this->href) {
+            $this->href = clone($this->href);
+        }
+    }
 }

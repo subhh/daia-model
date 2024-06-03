@@ -191,4 +191,24 @@ final class Item
             $visitor->visitUnavailable($unavailable);
         }
     }
+
+    public function __clone () : void
+    {
+        $this->availability = clone($this->availability);
+        if ($this->id) {
+            $this->id = clone($this->id);
+        }
+        if ($this->href) {
+            $this->href = clone($this->href);
+        }
+        if ($this->department) {
+            $this->department = clone($this->department);
+        }
+        if ($this->storage) {
+            $this->storage = clone($this->storage);
+        }
+        if ($this->chronology) {
+            $this->chronology = clone($this->chronology);
+        }
+    }
 }

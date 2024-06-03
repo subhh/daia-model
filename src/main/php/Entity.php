@@ -67,4 +67,14 @@ abstract class Entity
     {
         return $this->content;
     }
+
+    final public function __clone () : void
+    {
+        if ($this->id) {
+            $this->id = clone($this->id);
+        }
+        if ($this->href) {
+            $this->href = clone($this->href);
+        }
+    }
 }

@@ -75,4 +75,12 @@ final class DAIASimpleAvailable extends DAIASimple
         }
         return $data;
     }
+
+    public function __clone () : void
+    {
+        parent::__clone();
+        if ($this->delay) {
+            $this->delay = clone($this->delay);
+        }
+    }
 }

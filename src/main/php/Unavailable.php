@@ -69,4 +69,12 @@ final class Unavailable extends Availability
     {
         return $this->expectedUnknown;
     }
+
+    public function __clone () : void
+    {
+        parent::__clone();
+        if ($this->expected) {
+            $this->expected = clone($this->expected);
+        }
+    }
 }

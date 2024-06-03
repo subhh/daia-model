@@ -116,4 +116,24 @@ final class DAIA implements JsonSerializable
             $visitor->visitDocument($document);
         }
     }
+
+    public function __clone () : void
+    {
+        $documents = array();
+        foreach ($this->documents as $document) {
+            $documents[] = clone($document);
+        }
+        $this->documents = $documents;
+
+        if ($this->institution) {
+            $this->institution = clone($this->institution);
+        }
+        if ($this->timestamp) {
+            $this->timestamp = clone($this->timestamp);
+        }
+        if ($this->jsonSerializer) {
+            $this->jsonSerializer = clone($this->jsonSerializer);
+        }
+        $this->cloneProperties();
+    }
 }

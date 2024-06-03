@@ -56,4 +56,11 @@ final class Available extends Availability
     {
         return $this->delayUnknown;
     }
+
+    public function __clone () : void
+    {
+        if ($this->delay) {
+            $this->delay = clone($this->delay);
+        }
+    }
 }

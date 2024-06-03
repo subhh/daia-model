@@ -127,4 +127,17 @@ final class Document
             $visitor->visitItem($item);
         }
     }
+
+    public function __clone () : void
+    {
+        $this->id = clone($this->id);
+        if ($this->href) {
+            $this->href = clone($this->href);
+        }
+        $items = array();
+        foreach ($this->items as $item) {
+            $items[] = clone($item);
+        }
+        $this->items = $items;
+    }
 }

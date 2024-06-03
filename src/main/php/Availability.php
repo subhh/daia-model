@@ -93,4 +93,18 @@ abstract class Availability
             $visitor->visitLimitation($limitation);
         }
     }
+
+    public function __clone () : void
+    {
+        $this->service = clone($this->service);
+        if ($this->href) {
+            $this->href = clone($this->href);
+        }
+
+        $limitations = array();
+        foreach ($this->limitations as $limitation) {
+            $limitations[] = clone($limitation);
+        }
+        $this->limitations = $limitations;
+    }
 }

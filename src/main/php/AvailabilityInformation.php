@@ -79,4 +79,14 @@ final class AvailabilityInformation implements IteratorAggregate
         }
         return $unavailable;
     }
+
+    public function __clone () : void
+    {
+        /** @var SplObjectStorage<Availability, null> */
+        $availability = new SplObjectStorage();
+        foreach ($this->availability as $info) {
+            $availability->attach(clone($info));
+        }
+        $this->availability = $availability;
+    }
 }

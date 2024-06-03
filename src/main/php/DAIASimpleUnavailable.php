@@ -88,4 +88,12 @@ final class DAIASimpleUnavailable extends DAIASimple
         }
         return $data;
     }
+
+    public function __clone () : void
+    {
+        parent::__clone();
+        if ($this->expected) {
+            $this->expected = clone($this->expected);
+        }
+    }
 }
